@@ -1,0 +1,63 @@
+{% load static %} {% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="@@page-discription">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+    <!-- Page Title  -->
+    <title>Register</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="{% static 'assets/css/dashlite.css' %}">
+    <link id="skin-default" rel="stylesheet" href="{% static 'assets/css/theme.css' %}">
+</head>
+
+<body>
+    <div class="nk-block nk-block-lg">
+        <div class="nk-block-head">
+            <div class="nk-block-head-content">
+                <h4 style="text-align: center;padding-top: 5%;" lass="title nk-block-title">Register</h4>
+            </div>
+        </div>
+        <div class="container" style="padding-right: 25%;padding-left: 25%;">
+            <div class="card card-bordered h-100">
+                <div class="card-inner">
+                    <form method="POST" action="">
+                        {% csrf_token %} {% for field in registration_form %}
+                        <div class="form-group">
+                            <label class="form-label">{{ field.label_tag }}</label>
+                            <div class="form-control-wrap">
+                                {{ field|add_class:"form-control" }}
+                            </div>
+                            {% if field.help_text %}
+                            <small style="color:grey">
+                                {{ field.help_text }}
+                            </small> {% endif %}
+                        </div>
+                        {% endfor %}
+                        <div class="form-group">
+                            <ul class="custom-control-group g-3 align-center">
+                                <li>
+                                    <div class="custom-control custom-control-sm custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="remember-me">
+                                        <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-lg btn-primary"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets/js/bundle.js' %}"></script>
+    <script src="{% static 'assets/js/scripts.js' %}"></script>
+</body>

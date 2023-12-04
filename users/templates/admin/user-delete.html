@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ user.username }}"?</p>
+    <input type="submit" value="Confirm">
+    <a href="{% url 'users:users' %}"><button>No</button></a>
+</form>
+{% endblock content %}

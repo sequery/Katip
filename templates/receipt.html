@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Use PyQt5 to print thermal receipts</title>
+</head>
+
+<body>
+    <style>
+        #capture {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+        }
+        .tab {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .total {
+            padding: 0 3px;
+        }
+        .total div {
+            padding: 2px 0;
+        }
+    </style>
+    <div id="capture">
+        <div class="col-md-4" style="padding: 20px 30px; width: 240px;">
+            <div style="margin: 0 auto; width: fit-content;">
+                <img src='http://127.0.0.1:8000/static/images/logo-1.png' style="display: block; margin: 0 auto;" height="60" />
+                <h3 style="margin-bottom: 0px;">Argentina Steak House</h3>
+            </div>
+            <p style="text-align: center; margin-top: 0px;">Hudayberdiyew kocesi 9-njy mikrorayon, jay 15. <br> Tel: +99312151617 </p>
+            <div class="total">
+                <span style="float: left;">Order Number<span class="tab"></span> : </span>
+                <span style="text-align: left;"><span class="tab"></span>{{ order.code }}</span>
+            </div>
+            <div style="">
+                <span style="float: left;">Ordered At <span style="margin-left: 27px"></span> :</span>
+                <span style="text-align: left;"><span class="tab"></span>{{ order.created }}</span>
+            </div>
+            <div style="">
+                <span style="float: left;">Cashier<span style="margin-left: 46px"></span> :</span>
+                <span style="text-align: left;"><span class="tab"></span>{{ order.waiter }}</span>
+            </div>
+            <span>------------------------------------------------------</span>
+            <div class="section-4">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="100" style="text-align: left;">Title</th>
+                            <th width="100">Price</th>
+                            <th width="100">Quantity</th>
+                            <th width="100">Total</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ordered_item in ordered_items %}
+                        <tr>
+                            <td style="float: left;">
+                                {{ ordered_item.food.title.tm }} </td>
+                            <td style="text-align: center;"> {{ ordered_item.food_size.price }} </td>
+                            <td style="text-align: center;"> {{ ordered_item.quantity }} </td>
+                            <td style="text-align: center;">{% widthratio ordered_item.food_size.price 1 ordered_item.quantity %} TMT</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <span>------------------------------------------------------</span>
+            <div class="total">
+                <div>
+                    <span style="float: left;">Total :</span>
+                    <span style="float: right;">{{ order.total_cost }} TMT</span>
+                </div>
+                <br>
+                <div>
+                    <span style="float: left;">Paid :</span>
+                    <span style="float: right;">{{ order.paid }} TMT</span>
+                </div>
+                <br>
+                <div>
+                    <span style="float: left;">Change :</span>
+                    <span style="float: right;">{{ change }} TMT</span>
+                </div>
+            </div>
+            <br>
+            <div><span>------------------------------------------------------</span></div>
+            <span style="display: block; text-align: center; margin-top: 5px;">Thank you for your patronage!</span>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head" style="padding-bottom: 0">
+            <div class="nk-block-head nk-block-head-lg mb-5">
+                <div class="nk-block-head-sub">
+                    <span>Order Detail</span></div>
+                <div class="nk-block-between-md g-4">
+                    <div class="nk-block-head-content">
+                        <h2 class="nk-block-title fw-normal">Order Detail</h2>
+                    </div>
+                    <div class="nk-block-head-content">
+                        <form method="post">{% csrf_token %}
+                            <input type="submit" class="btn btn-lg btn-primary" value="Print">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- nav-tabs -->
+        <div class="nk-block">
+            <!-- .nk-block-head -->
+            <div class="card card-bordered">
+                <div class="nk-data data-list">
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Code</span>
+                            <span class="data-value">#{{ object.code }}</span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Hall/Table</span>
+                            <span class="data-value">{{ object.table.hall }}/{{ object.table }}</span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Cost</span>
+                            <span class="data-value">{{ object.cost }}
+                                TMT</span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Service Cost</span>
+                            <span class="data-value">{{ object.service_cost }}
+                                TMT</span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Ordered At</span>
+                            <span class="data-value">{{ object.created }}</span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Bill Taken</span>
+                            <span class="data-value">
+                                {% if object.bill_taken == True %}
+                                <span class="text-success">
+                                    Yes
+                                </span>
+                                {% else %}
+                                <span class="text-danger">
+                                    No
+                                </span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Tekeaway</span>
+                            <span class="data-value">
+                                {% if object.takeaway == True %}
+                                <span class="text-success">
+                                    Yes
+                                </span>
+                                {% else %}
+                                <span class="text-danger">
+                                    No
+                                </span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                </div>
+                <!-- .nk-data -->
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+        <h2>Ordered Items</h2>
+        <div class="nk-block">
+            <div class="card card-bordered">
+                <table class="table table-tranx">
+                    <thead>
+                        <tr class="tb-tnx-head">
+                            <th class="tb-tnx-id">
+                                <span>Food Name</span></th>
+                            <th>
+                                <span>Food Category</span></th>
+                            <th class="tb-tnx-info">
+                                <span class="tb-tnx-desc d-none d-sm-inline-block">
+                                    <span>Food Size</span>
+                                </span>
+                                <span class="tb-tnx-date d-md-inline-block d-none">
+                                    <span class="d-none d-md-block">
+                                        <span>Quantity</span>
+                                        <span>Cost</span>
+                                    </span>
+                                </span>
+                            </th>
+                            <th>Total Cost</th>
+
+                            <!-- <th class="tb-tnx-amount"> <span class="tb-tnx-total">Discount</span> <span
+                                class="tb-tnx-status d-none d-md-inline-block">Action</span> </th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order_item in object.order_items.all %}
+                        <tr class="tb-tnx-item">
+                            <td class="tb-tnx-id">
+                                <span>
+                                    {{ order_item.food }}
+                                </span>
+                            </td>
+                            <td>{{ order_item.food.category }}</td>
+                            <td class="tb-tnx-info">
+                                <div class="tb-tnx-desc">
+                                    <span class="title">{{ order_item.food_size }}</span>
+                                </div>
+                                <div class="tb-tnx-date">
+                                    <span class="date">{{ order_item.quantity }}</span>
+                                    <span class="date">{{ order_item.cost }}</span>
+                                </div>
+                            </td>
+                            <td>{{ order_item.total_cost }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+    </div>
+    <!-- content @e -->
+</div>
+{% endblock content %}

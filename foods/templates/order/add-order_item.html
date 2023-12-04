@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+    label{ 
+        margin-bottom : 5px; 
+    }
+    .form-control-wrap{
+        margin-top: 10px;
+    }
+</style>
+
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head">
+            <div class="nk-block-head-content">
+                <h2 style="text-align: center;" lass="title nk-block-title">Create Hall</h2>
+            </div>
+        </div>
+        <div class="nk-block">
+            <div class="container">
+                <div class="card card-bordered h-100">
+                    <div class="card-inner">
+                        <form method="POST" action=""  enctype="multipart/form-data">
+                            {% csrf_token %}
+                                {% for field in form %}
+                                        <div class="form-control-wrap">
+                                            {{ field.label_tag }}
+                                            {{ field }}
+                                        </div>
+                                {% endfor %}
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-lg btn-primary" value="Submit" style="margin-top: 15px;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

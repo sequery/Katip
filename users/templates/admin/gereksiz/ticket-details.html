@@ -1,0 +1,129 @@
+{% extends 'admin/base.html' %} {% load static %} {% block content %}
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head">
+            <div class="nk-block-head-sub"><a class="back-to" href="{% url 'users:tickets' %}"><em class="icon ni ni-arrow-left"></em><span>My Tickets</span></a></div>
+            <div class="nk-block-between-md g-4 align-items-end">
+                <div class="nk-block-head-content">
+                    <h2 class="nk-block-title fw-normal">Request for approve payment</h2>
+                </div>
+                <div class="nk-block-head-content">
+                    <ul class="nk-block-tools g-4 flex-wrap">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- .nk-block-head -->
+        <div class="nk-block">
+            <div class="ticket-info">
+                <ul class="ticket-meta">
+                    <li class="ticket-id"><span>Ticket ID:</span> <strong>7565</strong></li>
+                    <li class="ticket-date"><span>Submitted:</span> <strong>26 Jan 2020</strong></li>
+                </ul>
+                <div class="ticket-status">
+                    <span class="badge badge-success">Open</span>
+                </div>
+            </div>
+        </div>
+        <!-- .nk-block -->
+        <div class="nk-block nk-block-lg">
+            <div class="card card-bordered">
+                <div class="card-inner">
+                    <div class="ticket-msgs">
+                        <div class="ticket-msg-item">
+                            <div class="ticket-msg-from">
+                                <div class="ticket-msg-user user-card">
+                                    <div class="user-avatar bg-primary">
+                                        <span>KA</span>
+                                    </div>
+                                    <div class="user-info">
+                                        <span class="lead-text">Kenneth Anderson</span>
+                                        <span class="text-soft">Customer</span>
+                                    </div>
+                                </div>
+                                <div class="ticket-msg-date">
+                                    <span class="sub-text">Jan 26, 2020 6:00 AM</span>
+                                </div>
+                            </div>
+                            <div class="ticket-msg-comment">
+                                <p><strong>Hello Sir,</strong></p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                                    laborum.
+                                </p>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                <p>Best Regerds<br><strong>Kenneth Anderson</strong></p>
+                            </div>
+                        </div>
+                        <!-- .ticket-msg-item -->
+                        <div class="ticket-msg-item is-mine">
+                            <div class="ticket-msg-from">
+                                <div class="ticket-msg-user user-card">
+                                    <div class="user-avatar bg-warning">
+                                        <span>AB</span>
+                                    </div>
+                                    <div class="user-info">
+                                        <span class="lead-text">Abu Bin Ishtiyak</span>
+                                        <span class="text-soft">Support Team</span>
+                                    </div>
+                                </div>
+                                <div class="ticket-msg-date">
+                                    <span class="sub-text">Just Now</span>
+                                </div>
+                            </div>
+                            <div class="ticket-msg-comment">
+                                <p><strong>Hello Kenneth,</strong></p>
+                                <p>Thanks for contact us with your issues. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                            </div>
+                            <div class="ticket-msg-attach">
+                                <h6 class="title">Attachment</h6>
+                                <ul class="ticket-msg-attach-list">
+                                    <li>
+                                        <a href="#">
+                                            <img src="{% static 'images/gfx/attach-a.jpg' %}" alt="">
+                                            <em class="icon ni ni-download"></em>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="{% static 'images/gfx/attach-b.jpg' %}" alt="">
+                                            <em class="icon ni ni-download"></em>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- .ticket-msg-item -->
+                        <div class="ticket-msg-reply">
+                            <h5 class="title">Reply</h5>
+                            <form action="#" class="form-reply">
+                                <div class="form-group">
+                                    <div class="form-editor-custom">
+                                        <textarea class="form-control" placeholder="Write a message..."></textarea>
+                                        <div class="form-editor-action">
+                                            <ul class="form-editor-btn-group">
+                                                <li class="form-btn-more"><a href="#" data-toggle="tooltip" title="Add File" class="btn btn-icon"><em class="icon ni ni-clip-h"></em></a></li>
+                                                <li class="form-btn-more"><a href="#" data-toggle="tooltip" title="Add Image" class="btn btn-icon"><em class="icon ni ni-img"></em></a></li>
+                                                <li class="form-btn-more"><a href="#" data-toggle="tooltip" title="Add Link" class="btn btn-icon"><em class="icon ni ni-link"></em></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-action">
+                                    <ul class="form-btn-group">
+                                        <li class="form-btn-primary"><a href="#" class="btn btn-primary">Send</a></li>
+                                        <li class="form-btn-secondary"><a href="#" class="btn btn-dim btn-outline-light">Mark as close</a></li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- .ticket-msg-reply -->
+                    </div>
+                    <!-- .ticket-msgs -->
+                </div>
+            </div>
+        </div>
+        <!-- .nk-block -->
+    </div>
+    {% endblock content %}

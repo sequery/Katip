@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<form style="margin-left: 15%;margin-top: 5%; text-align:center" method="post">{% csrf_token %}
+    <h5>Are you sure you want to print {{ object }} ?</h5>
+    <input type="submit" class="btn btn-lg btn-primary" value="Confirm">
+</form>
+
+
+{% endblock content %}

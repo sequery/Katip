@@ -1,0 +1,114 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<!-- .nk-aside -->
+<style>
+    .tab {
+        display: inline-block;
+        margin-left: 40px;
+    }
+</style>
+
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head nk-block-head-lg">
+            <div class="nk-block-head-sub"><span>All</span></div>
+            <div class="nk-block-between-md g-4">
+                <div class="nk-block-head-content">
+                    <h2 class="nk-block-title fw-normal">Categories</h2>
+                </div>
+                <div class="nk-block-head-content">
+                    <ul class="nk-block-tools gx-3">
+                        <li>
+                            <a href="{% url 'foods:add-food_category' %}" class="btn btn-white btn-dim btn-outline-primary">
+                            <em class="icon ni ni-edit"></em><span class="d-none d-sm-inline-block">Create new</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nk-block">
+            <div class="card card-bordered">
+                <table class="table table-tranx">
+                    <thead>
+                        <tr class="tb-tnx-head">
+                            <th>#<span class="tab"></span><span class="tab"></span></th>
+                            <th>Name<span class="tab"></span></th>
+                            <th>Foods<span class="tab"></span></th>
+                            <th>Drink Category</th>
+                            <th>Parent Category</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in object_list %}
+                        <tr class="tb-tnx-item">
+                            <td>
+                                <span>
+                                    {{ category.id }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ category.title.tm }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="title">{{ category.food_count }}</span>
+                            </td>
+                            <td>
+                                <span class="date">
+                                    {% if category.drink_category == True %}
+                                        <span class="text-success">
+                                            Yes
+                                        </span>
+                                    {% else %}
+                                        <span class="text-danger">
+                                            No
+                                        </span>
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td>
+                            <span class="date">
+                                {% if category.parent_category %}
+                                    <span>
+                                        {{ category.parent_category.title.tm }}
+                                    </span>
+                                {% else %}
+                                    <span>
+                                        -------------
+                                    </span>
+                                {% endif %}
+                            </span>
+                            </td>
+                            <td class="tb-col-action">
+                                <span class="mr-1">
+                                    <a
+                                        href="{% url 'foods:detail-food_category' category.id %}"
+                                        class="link-cross link-eye mr-sm-n1">
+                                        <em class="icon ni ni-eye"></em>
+                                    </a>
+                                </span>
+                                <span class="mr-1">
+                                    <a
+                                        href="{% url 'foods:update-food_category' category.id %}"
+                                        class="link-cross link-edit mr-sm-n1">
+                                        <em class="icon ni ni-edit-alt"></em>
+                                    </a>
+                                </span>
+                                <span class="mr-1">
+                                    <a href="{% url 'foods:delete-food_category' category.id %}" class="link-cross mr-sm-n1">
+                                        <em class="icon ni ni-trash"></em>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+    </div>
+    {% endblock content %}

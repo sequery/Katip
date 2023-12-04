@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head">
+            <div class="nk-block-head-content">
+                <div class="nk-block-head-sub"><span>Food Detail</span></div>
+                <h2 class="nk-block-title fw-normal">Food Detail</h2>
+                <div class="nk-block-des">
+                    <p>You Can See The Details Of The Food You Are Gonna Eat. <span class="text-primary"><em class="icon ni ni-info"></em></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- nav-tabs -->
+        <div class="nk-block">
+            <!-- .nk-block-head -->
+            <div class="card card-bordered">
+                <div class="nk-data data-list">
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Number</span>
+                            <span class="data-value">{{ object.number }}</span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Active</span>
+                            <span class="data-value">
+                                {% if object.is_active == True %}
+                                    <span class="text-success" > Yes </span>
+                                {% else %}
+                                    <span class="text-danger" > No </span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Number</span>
+                            <span class="data-value">
+                                {% if object.status == True %}
+                                    <span class="badge badge-dot badge-success"> Empty </span>
+                                {% else %}
+                                    <span class="badge badge-dot badge-danger"> Not Empty </span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Hall</span>
+                            <span class="data-value">{{ object.hall.title.tm }}</span>
+                        </div>
+                        <a href="{% url 'foods:detail-hall' object.hall.id %}"><div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div></a>
+                    </div>
+                    <!-- .data-item -->
+                </div>
+                <!-- .nk-data -->
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+    </div>
+    <!-- content @e -->
+</div>
+{% endblock content %}

@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head nk-block-head-lg">
+            <div class="nk-block-between-md g-4">
+                <div class="nk-block-head-content">
+                    <h2 class="nk-block-title fw-normal">Users</h2>
+                    <div class="nk-block-des">
+                        <p>You can edit and remove a user as you want.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .nk-block-head -->
+        <div class="nk-block">
+            <div class="card card-bordered">
+                <table class="table table-member">
+                    <thead class="tb-member-head thead-light">
+                        <tr class="tb-member-item">
+                            <th class="tb-id">
+                                <span class="overline-title">Id</span>
+                            </th>
+                            <th class="tb-member-info">
+                                <span class="overline-title">Team Member</span>
+                            </th>
+                            <th class="tb-member-role tb-col-sm">
+                                <span class="overline-title">Role</span>
+                            </th>
+                            {% if request.user.staff and request.user.admin == True%}
+                            <th class="tb-member-action">
+                                <span class="overline-title">Action</span>
+                            </th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <!-- .tb-member-item -->
+                    <tr class="tb-member-item"></tr>
+                    {% for person in users%} {% if request.user.id == person.id %}
+                    <td class="tb-id">
+                        <span>{{person.id}}</span>
+                    </td>
+                    <td class="tb-member-info">
+                        <div class="user-card">
+                            <div class="user-avatar bg-success">
+                                <span>JF</span>
+                            </div>
+                            <div class="user-info">
+                                <span class="lead-text">{{person.username}}</span>
+                                <span class="sub-text">{{person.email}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    {% if person.staff and person.admin == True%}
+                    <td class="tb-member-role tb-col-sm">
+                        <span>Super Admin</span>
+                    </td>
+                    {% elif person.staff == True and person.admin == False %}
+                    <td class="tb-member-role tb-col-sm">
+                        <span>Admin</span>
+                    </td>
+                    {% else %}
+                    <td class="tb-member-role tb-col-sm">
+                        <span>Costumer</span>
+                    </td>
+                    {% endif %}
+                    {% if request.user.staff and request.user.admin == True%}
+                    <td class="tb-member-action">
+                        <div class="d-none d-md-inline">
+                            <a href="{% url 'users:edit' person.id %}" class="link link-sm"><span>Edit</span></a>
+                        </div>
+                        <div class="dropdown d-md-none">
+                            <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                <ul class="link-list-plain no-bdr">
+                                    <li class="active"><a class="link link-sm" href="{% url 'users:edit' person.id %}">Edit</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    {% endif %}
+                    {% else %}
+                    <td class="tb-id">
+                        <span>{{person.id}}</span>
+                    </td>
+                    <td class="tb-member-info">
+                        <div class="user-card">
+                            <div class="user-avatar bg-success">
+                                <span>JF</span>
+                            </div>
+                            <div class="user-info">
+                                <span class="lead-text">{{person.username}}</span>
+                                <span class="sub-text">{{person.email}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    {% if person.staff and person.admin == True%}
+                    <td class="tb-member-role tb-col-sm">
+                        <span>Super Admin</span>
+                    </td>
+                    {% elif person.staff == True and person.admin == False %}
+                    <td class="tb-member-role tb-col-sm">
+                        <span>Admin</span>
+                    </td>
+                    {% else %}
+                    <td class="tb-member-role tb-col-sm">
+                        <span>Costumer</span>
+                    </td>
+                    {% endif %}
+                    {% if request.user.staff and request.user.admin == True%}
+                    <td class="tb-member-action">
+                        <div class="d-none d-md-inline">
+                            <a href="{% url 'users:edit' person.id %}" class="link link-sm"><span>Edit</span></a>
+                            <a href="{% url 'users:delete' person.id %}" class="link link-sm link-danger"><span>Remove</span></a>
+                        </div>
+                        <div class="dropdown d-md-none">
+                            <a class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-v"></em></a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                <ul class="link-list-plain no-bdr">
+                                    <li class="active"><a class="link link-sm" href="{% url 'users:edit' person.id %}">Edit</a></li>
+                                    <li>
+                                        <a class="link link-sm link-danger" href="{% url 'users:delete' person.id %}">Remove</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    {% endif %}
+                    {% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}

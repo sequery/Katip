@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="nk-content-body">
+        <div class="nk-content-wrap">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content">
+                    <div class="nk-block-head-sub">
+                        <span>Food Detail</span></div>
+                    <h2 class="nk-block-title fw-normal">Food Detail</h2>
+                    <div class="nk-block-des">
+                        <p>You Can See The Details Of The Food You Are Gonna Eat.
+                            <span class="text-primary">
+                                <em class="icon ni ni-info"></em>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- nav-tabs -->
+            <div class="nk-block">
+                <!-- .nk-block-head -->
+                <div class="card card-bordered">
+                    <div class="nk-data data-list">
+                        <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                            <div class="data-col">
+                                <span class="data-label">Image</span>
+                                <img class="data-value" src="/media/{{ object.image }}" style="height: 60px;"></img>
+                            </div>
+                            <a href="/media/{{ object.image }}">
+                                <div class="data-col data-col-end">
+                                    <span class="data-more">
+                                        <em class="icon ni ni-forward-ios"></em>
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- .data-item -->
+                        <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                            <div class="data-col">
+                                <span class="data-label">Name</span>
+                                <span class="data-value">
+                                    English:
+                                    {{ object.title.en }}
+                                    <br>
+                                    Türkmen dili:
+                                    {{ object.title.tm }}
+                                    <br>
+                                    Русский:
+                                    {{ object.title.ru }}
+                                    <br></span>
+                            </div>
+                            <div class="data-col data-col-end"></div>
+                        </div>
+                        <!-- .data-item -->
+                        <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                            <div class="data-col">
+                                <span class="data-label">Description</span>
+                                <span class="data-value">{{ object.description }}</span>
+                            </div>
+                            <div class="data-col data-col-end"></div>
+                        </div>
+                        <!-- .data-item -->
+                        <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                            <div class="data-col">
+                                <span class="data-label">Active</span>
+                                <span class="data-value">
+                                    {% if object.is_active == True %}
+                                        <span class="text-success" > Yes </span>
+                                    {% else %}
+                                        <span class="text-danger" > No </span>
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="data-col data-col-end"></div>
+                        </div>
+                        <!-- .data-item -->
+                        <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                            <div class="data-col">
+                                <span class="data-label">Category</span>
+                                <span class="data-value">{{ object.category.title.tm }}</span>
+                            </div>
+                            <a href="{% url 'foods:detail-food_category' object.category.id %}">
+                                <div class="data-col data-col-end">
+                                    <span class="data-more">
+                                        <em class="icon ni ni-forward-ios"></em>
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- .data-item -->
+                        <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                            <div class="data-col">
+                                <span class="data-label">Discount</span>
+                                <span class="data-value">{{ object.discount }}
+                                    {% if object.discount_unit == 'percent' %}
+                                        %
+                                    {% elif object.discount_unit == 'manat' %}
+                                        TMT
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="data-col data-col-end"></div>
+                        </div>
+                        <!-- .data-item -->
+                    </div>
+                    <!-- .nk-data -->
+                </div>
+                <!-- .card -->
+            </div>
+            <!-- .nk-block -->
+            <div class="nk-block-head">
+                <div class="nk-block-between-md g-4">
+                    <div class="nk-block-head-content">
+                        <h4 class="nk-block-title fw-normal">Foods</h4>
+                    </div>
+                    <div class="nk-block-head-content">
+                        <ul class="nk-block-tools gx-3">
+                            <li>
+                                <a
+                                    href="{% url 'foods:add-food_size' %}"
+                                    class="btn btn-white btn-dim btn-outline-primary">
+                                    <em class="icon ni ni-edit"></em>
+                                    <span class="d-none d-sm-inline-block">Create new</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% if object.food_size %}
+            <div class="nk-block">
+                <div class="card card-bordered">
+                    <div class="nk-data data-list">
+                        {% for food_s in object.food_size.all %}
+                            <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                                <div class="data-col">
+                                    <span class="data-label">Price of <b>{{ food_s.title.tm }}</b> Version</span>
+                                    <span class="data-value"> {{ food_s.price }} TMT</span>
+                                </div>
+                                <div class="data-col data-col-end">
+                                    <a href="{% url 'foods:update-food_size' food.id%}" class="data-more"><em class="icon ni ni-edit-alt"></em></a>
+                                    <a href="{% url 'foods:delete-food_size' food.id%}" class="data-more ml-3"><em class="icon ni ni-trash"></em></a>
+                                </div>
+                            </div>
+                        <!-- .data-item -->
+                        {% endfor %}
+                    </div>
+                    <!-- .nk-data -->
+                </div>
+                <!-- .card -->
+            </div>
+            <!-- .nk-block -->
+            {% else %}
+            {% endif %}
+        </div>
+        <!-- content @e -->
+    </div>
+{% endblock content %}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head">
+            <div class="nk-block-head-content">
+                <div class="nk-block-head-sub"><span>Hall</span></div>
+                <h2 class="nk-block-title fw-normal">{{ object.title.tm }}</h2>
+                <div class="nk-block-des">
+                    <p>You Can See The Details Of The Food You Are Gonna Eat. <span class="text-primary"><em class="icon ni ni-info"></em></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- nav-tabs -->
+        <div class="nk-block">
+            <!-- .nk-block-head -->
+            <div class="card card-bordered">
+                <div class="nk-data data-list">
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Name</span>
+                            <span class="data-value">
+                                English:
+                                {{ object.title.en }}
+                                <br>
+                                Türkmen dili:
+                                {{ object.title.tm }}
+                                <br>
+                                Русский:
+                                {{ object.title.ru }}
+                                <br></span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Active</span>
+                            <span class="data-value">
+                                {% if object.is_active == True %}
+                                    <span class="text-success" > Yes </span>
+                                {% else %}
+                                    <span class="text-danger" > No </span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="data-col data-col-end"></div>
+                    </div>
+                    <!-- .data-item -->
+                </div>
+                <!-- .nk-data -->
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+        <div class="nk-block">
+            <div class="card card-bordered">
+                <table class="table table-tranx">
+                    <thead>
+                        <tr class="tb-tnx-head">
+                            <th class="tb-tnx-id"><span class="">Table Number</span></th>
+                            <th class="tb-tnx-info">
+                                <span class="tb-tnx-desc d-none d-sm-inline-block">
+                                    <span>Hall Name</span>
+                                </span>
+                                <span class="tb-tnx-date d-md-inline-block d-none">
+                                <span class="d-none d-md-block">
+                                    <span>Active</span>
+                                    <span>Status</span>
+                                </span>
+                                </span>
+                            </th>
+                            <th class="tb-tnx-amount">
+                                <!-- <span class="tb-tnx-total">Discount</span> -->
+                                <span class="tb-tnx-status d-none d-md-inline-block">Action</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for table in object.table.all %}
+                        <tr class="tb-tnx-item">
+                            <td class="tb-tnx-id">
+                                <a href="#"><span> {{ table.number }} </span></a>
+                            </td>
+                            <td class="tb-tnx-info">
+                                <div class="tb-tnx-desc">
+                                    <span class="title">{{ table.hall.title.tm }}</span>
+                                </div>
+                                <div class="tb-tnx-date">
+                                    <span class="date">{% if table.is_active == True %}
+                                        <span class="text-success" > Yes </span>
+                                    {% else %}
+                                        <span class="text-danger" > No </span>
+                                    {% endif %}</span>
+                                    <span class="date">
+                                    {% if table.status == True %}
+                                        <span class="badge badge-dot badge-success"> Empty </span>
+                                    {% else %}
+                                        <span class="badge badge-dot badge-danger"> Not Empty </span>
+                                    {% endif %}</span>
+                                </div>
+                            </td>
+                            <td class="tb-tnx-amount">
+                                <div class="tb-tnx-status">
+                                    <span class="mr-1"><a href="{% url 'foods:detail-table' table.id %}" class="link-cross link-eye mr-sm-n1"><em class="icon ni ni-eye"></em></a></span>
+                                    <span class="mr-1"><a href="{% url 'foods:update-table' table.id %}" class="link-cross link-edit mr-sm-n1"><em class="icon ni ni-edit-alt"></em></a></span>
+                                    <span class="mr-1"><a href="{% url 'foods:delete-table' table.id %}" class="link-cross mr-sm-n1"><em class="icon ni ni-trash"></em></a></span>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+    </div>
+    <!-- content @e -->
+</div>
+{% endblock content %}

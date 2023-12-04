@@ -1,0 +1,158 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head">
+            <div class="nk-block-head-content">
+                <div class="nk-block-head-sub"><span>Account Setting</span></div>
+                <h2 class="nk-block-title fw-normal">My Profile</h2>
+                <div class="nk-block-des">
+                    <p>You have full control to manage your own account setting. <span class="text-primary"><em class="icon ni ni-info"></em></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- nav-tabs -->
+        <div class="nk-block">
+            <!-- .nk-block-head -->
+            <div class="card card-bordered">
+                <div class="nk-data data-list">
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Email</span>
+                            <span class="data-value">{{ request.user.email }}</span>
+                        </div>
+                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Username</span>
+                            <span class="data-value">{{ request.user.username }}</span>
+                        </div>
+                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item">
+                        <div class="data-col">
+                            <span class="data-label">Date Joined</span>
+                            <span class="data-value text-soft">{{ request.user.date_joined }}</span>
+                        </div>
+                        <div class="data-col data-col-end"><span class="data-more disabled"><em class="icon ni ni-lock-alt"></em></span></div>
+                    </div>
+                    <!-- .data-item -->
+                    {% if request.user.staff and request.user.admin == True %}
+                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                        <div class="data-col">
+                            <span class="data-label">Status</span>
+                            <span class="data-value">Super Admin</span>
+                        </div>
+                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+                    </div>
+                    {% elif request.user.staff == True and request.user.admin == False %}
+                    <div class="data-item">
+                        <div class="data-col">
+                            <span class="data-label">Status</span>
+                            <span class="data-value text-soft">Admin</span>
+                        </div>
+                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-lock-alt"></em></span></div>
+                    </div>
+                    {% else %}
+                    <div class="data-item">
+                        <div class="data-col">
+                            <span class="data-label">Status</span>
+                            <span class="data-value text-soft">Costumer</span>
+                        </div>
+                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-lock-alt"></em></span></div>
+                    </div>
+                    {% endif %}
+                    <!-- .data-item -->
+                </div>
+                <!-- .nk-data -->
+            </div>
+            <!-- .card -->
+            <!-- Another Section -->
+            <div class="nk-block-head">
+                <div class="nk-block-head-content">
+                    <h5 class="nk-block-title">Personal Preferences</h5>
+                    <div class="nk-block-des">
+                        <p>Your personalized preference allows you best use.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- .nk-block-head -->
+            <div class="card card-bordered">
+                <div class="nk-data data-list">
+                    <div class="data-item">
+                        <div class="data-col">
+                            <span class="data-label">Language</span>
+                            <span class="data-value">English (United State)</span>
+                        </div>
+                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary">Change Language</a></div>
+                    </div>
+                    <!-- .data-item -->
+                    <div class="data-item">
+                        <div class="data-col">
+                            <span class="data-label">Timezone</span>
+                            <span class="data-value">Bangladesh (GMT +6)</span>
+                        </div>
+                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary">Change</a></div>
+                    </div>
+                    <!-- .data-item -->
+                </div>
+                <!-- .nk-data -->
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+    </div>
+    <!-- content @e -->
+</div>
+<!-- main @e -->
+</div>
+<!-- @@ Profile Edit Modal @e -->
+<div class="modal fade" tabindex="-1" role="dialog" id="profile-edit">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-lg">
+                <h5 class="title">Update Profile</h5>
+                <!-- .nav-tabs -->
+                <form method="POST" action="">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="personal">
+                            <div class="row gy-4">
+                                {% csrf_token %} {% for field in user_form %} 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {% if 2 >= forloop.counter %}
+                                        <label class="form-label" for="full-name" style="margin-bottom: -9px;"> {{ field.label_tag }} </label> {{ field }}
+                                        {% endif %}{% if forloop.counter > 2 and request.user.staff and request.user.admin == True %} <label class="form-label " for="address-county ">{{ field.label_tag }}</label> {{ field }} {% endif %}
+                                    </div>
+                                </div>{% endfor %}
+                            </div>
+                            <div class="col-12">
+                                <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                    <li>
+                                        <input type="submit" class="btn btn-lg btn-primary" value="Update Profile" style="margin-top: 8%;margin-left: -9%;">
+                                    </li>
+                                    <li>
+                                        <button onclick="history.back()" data-dismiss="modal " class="link link-light " style="margin-top: 39%;margin-left: -20%;">Cancel</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- .tab-pane -->
+        </div>
+        <!-- .tab-content -->
+    </div>
+    <!-- .modal-body -->
+</div>
+<!-- .modal-content -->
+</div>
+<!-- .modal-dialog -->
+</div>
+<!-- .modal -->
+</div>
+{% endblock content %}

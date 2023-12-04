@@ -1,0 +1,157 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<!-- .nk-aside -->
+<div class="nk-content-body">
+    <div class="nk-content-wrap">
+        <div class="nk-block-head nk-block-head-lg">
+            <div class="nk-block-between-md g-4">
+                <div class="nk-block-head-content">
+                    {% if request.user.username %}
+                    <h2 class="nk-block-title fw-normal">Welcome, {{ request.user.username }} </h2>
+                    {% else %}
+                    <h2 class="nk-block-title fw-normal">Welcome, Visitor </h2>
+                    {% endif %}
+                    <div class="nk-block-des">
+                        <p>Welcome to our dashboard. Manage your account and your subscriptions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .nk-block-head -->
+        <div class="nk-block" style="display:flex">
+            <div class="col-md-3 col-lg-6" style="padding-left: 0px;color: red">
+                <div class="nk-wg-card is-dark card card-bordered">
+                    <div class="card-inner">
+                        <div class="nk-iv-wg2">
+                            <div class="nk-iv-wg2-title">
+                                <h6 class="title">User Count <em class="icon ni ni-info"></em></h6>
+                            </div>
+                            <div class="nk-iv-wg2-text">
+                                <div class="nk-iv-wg2-amount"> {{ users|length }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .card -->
+            </div>
+            <div class="col-md-3 col-lg-6" style="padding-right: 0px;">
+                <div class="nk-wg-card is-dark card card-bordered">
+                    <div class="card-inner">
+                        <div class="nk-iv-wg2">
+                            <div class="nk-iv-wg2-title">
+                                <h6 class="title">Food Count <em class="icon ni ni-info"></em></h6>
+                            </div>
+                            <div class="nk-iv-wg2-text">
+                                <div class="nk-iv-wg2-amount"> {{ foods|length }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .card -->
+            </div>
+        </div>
+        <div class="nk-block" style="display:flex">
+            <div class="col-md-3 col-lg-6" style="padding-left: 0px;">
+                <div class="nk-wg-card is-dark card card-bordered">
+                    <div class="card-inner">
+                        <div class="nk-iv-wg2">
+                            <div class="nk-iv-wg2-title">
+                                <h6 class="title">Category Count <em class="icon ni ni-info"></em></h6>
+                            </div>
+                            <div class="nk-iv-wg2-text">
+                                <div class="nk-iv-wg2-amount"> {{ categories|length }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .card -->
+            </div>
+            <div class="col-md-3 col-lg-6" style="padding-right: 0px;">
+                <div class="nk-wg-card is-dark card card-bordered">
+                    <div class="card-inner">
+                        <div class="nk-iv-wg2">
+                            <div class="nk-iv-wg2-title">
+                                <h6 class="title">Table Count<em class="icon ni ni-info"></em></h6>
+                            </div>
+                            <div class="nk-iv-wg2-text">
+                                <div class="nk-iv-wg2-amount"> {{ tables|length }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .card -->
+            </div>
+        </div>
+        <div class="nk-block">
+            <div class="card card-bordered">
+                <div class="card-inner card-inner-md">
+                    <div class="card-title-group">
+                        <h6 class="card-title">Users</h6>
+                        <!-- <div class="card-action">
+                            <a href="html/subscription/payments.html" class="link link-sm">See All <em class="icon ni ni-chevron-right"></em></a>
+                        </div> -->
+                    </div>
+                </div>
+                <table class="table table-tranx">
+                    <thead>
+                        <tr class="tb-tnx-head">
+                            <th class="tb-tnx-id"><span class="">#</span></th>
+                            <th class="tb-tnx-info">
+                                <span class="tb-tnx-desc d-none d-sm-inline-block">
+                                    <span>Username</span>
+                                </span>
+                                <span class="tb-tnx-date d-md-inline-block d-none">
+                                <span class="d-none d-md-block">
+                                    <span>Date Joined</span>
+                                    <span>Last Login</span>
+                                </span>
+                                </span>
+                            </th>
+                            <th class="tb-tnx-amount">
+                                <span class="tb-tnx-total">Role</span>
+                                <span class="tb-tnx-status d-none d-md-inline-block">Status</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr class="tb-tnx-item">
+                            <td class="tb-tnx-id">
+                                <a href="#"><span> {{ user.id }} </span></a>
+                            </td>
+                            <td class="tb-tnx-info">
+                                <div class="tb-tnx-desc">
+                                    <span class="title">{{ user.username }}</span>
+                                </div>
+                                <div class="tb-tnx-date">
+                                    <span class="date">{{ user.date_joined }}</span>
+                                    <span class="date">{{ user.last_login }}</span>
+                                </div>
+                            </td>
+                            <td class="tb-tnx-amount">
+                                <div class="tb-tnx-total">
+                                    {% if user.admin == True %}
+                                    <span class="amount">Super Admin</span>
+                                    {% elif user.staff == True %}
+                                    <span class="amount">Admin</span>
+                                    {% else %}
+                                    <span class="amount">Costumer</span>
+                                    {% endif %}
+                                </div>
+                                <div class="tb-tnx-status">
+                                    {% if user.confirmed == True %}
+                                    <span class="badge badge-dot badge-success">Confirmed</span>
+                                    {% else %}
+                                    <span class="badge badge-dot badge-warning">Not Confirmed</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- .card -->
+        </div>
+        <!-- .nk-block -->
+    </div>
+    {% endblock content %}
